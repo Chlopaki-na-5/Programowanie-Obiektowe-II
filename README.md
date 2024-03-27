@@ -31,7 +31,7 @@ Aplikacja ma za zadanie symulować działanie automatu biletowego wzorowanego na
 
 - Obsługa błędnych wpłat: Automat powinien reagować na błędne wpłaty, informując użytkownika o konieczności wrzucenia odpowiedniej kwoty.
 - Wyświetlanie ceny biletu: Przed dokonaniem płatności automat powinien wyświetlić użytkownikowi cenę wybranego biletu.
-- Powrót wrzuconej gotówki: Jeśli użytkownik zrezygnuje z zakupu biletu, automat powinien zwrócić wrzucone pieniądze.
+- Zwrot wrzuconej gotówki: Jeśli użytkownik zrezygnuje z zakupu biletu, automat powinien zwrócić wrzucone pieniądze.
 
 **Could have:**
 
