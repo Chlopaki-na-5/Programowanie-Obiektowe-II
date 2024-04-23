@@ -1,4 +1,4 @@
-##Strona startowa, należy wybudzić urządzenie a by prześć do zakładki z biletami.Po dłuższej nieaktywności biletomat powraca właśnie do niej.##
+## Strona startowa, należy wybudzić urządzenie a by prześć do zakładki z biletami.Po dłuższej nieaktywności biletomat powraca właśnie do niej. ##
 
 class Start_page:
 
@@ -19,7 +19,7 @@ class Start_page:
 
 
 
-##Zakładka z biletami. Możliwość wyboru biletu ulgowego i normalnego.##
+## Zakładka z biletami. Możliwość wyboru biletu ulgowego i normalnego. ##
 
 class Bilet_page:
 
@@ -152,8 +152,8 @@ class Bilet_page:
             self.create()
             mainloop()
 
-##Link do projektu na Figmie: ##
+## Link do projektu na Figmie: ##
 https://www.canva.com/design/DAGAum7-1Fs/h66BKcrA4z2E_b1GyXD5rA/edit?utm_content=DAGAum7-1Fs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-##Raport ze stosowania metodologii programowania zwinnego: ##
+## Raport ze stosowania metodologii programowania zwinnego: ##
 ![JiraII](JiraII.png)
