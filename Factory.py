@@ -45,7 +45,7 @@ def factory_page(page):
     match page:
         case 1:
             print("Factory work")
-            #Start_page.StartBuilder().build()
+            Start_page.StartBuilder().build()
             app = tkinterApp()
         case 2:
             print("Page 2")

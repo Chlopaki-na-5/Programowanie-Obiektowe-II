@@ -2,7 +2,16 @@ import tkinter as tk
 from tkinter import ttk
 
 LARGEFONT = ("Verdana", 35)
+width_of_label = 50
+height_of_label = 10
 
+width_image = 30
+height_image = 10
+white = 'white'
+
+def whiteLabel():
+    return tk.Label(frame_center, width=width_of_label, height=height_of_label,
+                      background=white, padx=0, pady=0, highlightthickness="0")
 
 class tkinterApp(tk.Tk):
 
@@ -13,7 +22,7 @@ class tkinterApp(tk.Tk):
 
         # creating a container
         container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
+        container.pack(side="top", fill="both", expand=False)
 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -23,7 +32,7 @@ class tkinterApp(tk.Tk):
 
         # iterating through a tuple consisting
         # of the different page layouts
-        for F in (StartPage, Bilet_page, Page2):
+        for F in (StartPage, Bilet_page):
             frame = F(container, self)
 
             # initializing frame of that object from
@@ -31,7 +40,7 @@ class tkinterApp(tk.Tk):
             # for loop
             self.frames[F] = frame
 
-            frame.grid(row=0, column=0, sticky="nsew")
+            frame.grid(row=0, column=0, padx=0, pady=0)
 
         self.show_frame(StartPage)
 
@@ -49,10 +58,8 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.frames = None
         self.controller = controller
-        self.width = 50
-        self.height = 10
         self.white = "white"
-        self.image_button = tk.PhotoImage(file=r"C:\Users\Krecik\Desktop\pythonProject\button.png")
+        self.image_button = tk.PhotoImage(file=r".\button.png")
 
         self.create()
 
@@ -60,30 +67,34 @@ class StartPage(tk.Frame):
         frame = self.frames[cont]
         frame.tkraise()
 
+    #center panel of center panel
     def center(self):
-        m0 = tk.Label(frame_center, width=self.width * 3, height=self.height * 5, background="lightblue",
-                      text="Ekran startowy")
+        m0 = tk.Label(frame_center, width=width_of_label*3, height=height_of_label*5 + 1,
+                      background="lightblue",
+                      text="Ekran startowy", padx=0, pady=0)
         m0.grid(row=0, column=0)
 
+    #center panel
     def create_center(self):
         global frame_center
-        frame_center = tk.Frame(self, highlightbackground="black", highlightthickness="5")
+        frame_center = tk.Frame(self,
+                                highlightbackground="black", highlightthickness="5", padx=0, pady=0)
         self.center()
-        frame_center.grid(row=1, column=1, padx=20, pady=20)
+        frame_center.grid(row=0, column=1, padx=0, pady=0)
 
+    #left panel with buttons
     def create_left(self):
-        frame_left = tk.Frame(self, width=100)
+        frame_left = tk.Frame(self, width=100, padx=0, pady=0)
         self.buttons(frame_left)
-        frame_left.grid(row=1, column=0)
+        frame_left.grid(row=0, column=0, padx=0, pady=0)
 
+    #right panel with button
     def create_right(self):
-        frame_right = tk.Frame(self, width=100)
+        frame_right = tk.Frame(self, width=100, padx=0, pady=0)
         self.buttons(frame_right)
-        frame_right.grid(row=1, column=2)
+        frame_right.grid(row=0, column=2, padx=0, pady=0)
 
     def buttons(self, frame):
-        width_image = 30
-        height_image = 10
 
         image = self.image_button.zoom(19, 19).subsample(39)
 
@@ -114,71 +125,14 @@ class StartPage(tk.Frame):
         self.create_right()
         # self.frame.pack()
 
-
-# second window frame page1
-class Page1(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Page 1", font=LARGEFONT)
-        label.grid(row=0, column=4, padx=10, pady=10)
-
-        # button to show frame 2 with text
-        # layout2
-        button1 = ttk.Button(self, text="StartPage",
-                             command=lambda: controller.show_frame(StartPage))
-
-        # putting the button in its place
-        # by using grid
-        button1.grid(row=1, column=1, padx=10, pady=10)
-
-        # button to show frame 2 with text
-        # layout2
-        button2 = ttk.Button(self, text="Page 2",
-                             command=lambda: controller.show_frame(Page2))
-
-        # putting the button in its place by
-        # using grid
-        button2.grid(row=2, column=1, padx=10, pady=10)
-
-
-# third window frame page2
-class Page2(tk.Frame):
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Page 2", font=LARGEFONT)
-        label.grid(row=0, column=4, padx=10, pady=10)
-
-        # button to show frame 2 with text
-        # layout2
-        button1 = ttk.Button(self, text="Page 1",
-                             command=lambda: controller.show_frame(Page1))
-
-        # putting the button in its place by
-        # using grid
-        button1.grid(row=1, column=1, padx=10, pady=10)
-
-        # button to show frame 3 with text
-        # layout3
-        button2 = ttk.Button(self, text="Startpage",
-                             command=lambda: controller.show_frame(StartPage))
-
-        # putting the button in its place by
-        # using grid
-        button2.grid(row=2, column=1, padx=10, pady=10)
-
-
 class Bilet_page(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.frames = None
         self.controller = controller
-        self.width = 50
-        self.height = 10
         self.white = "white"
-        self.image_button = tk.PhotoImage(file=r"C:\Users\Krecik\Desktop\pythonProject\button.png")
-
+        self.image_button = tk.PhotoImage(file=r".\button.png")
         self.create()
 
     def show_frame(self, cont):
@@ -193,7 +147,7 @@ class Bilet_page(tk.Frame):
 
         b0 = tk.Label(frame, width=width_image, height=height_image)
         b1_label = tk.Label(frame, width=width_image, height=height_image)
-        b1 = tk.Button(b1_label, image=image, background=self.white,
+        b1 = tk.Button(b1_label, image=image,
                        command=lambda: self.controller.show_frame(StartPage))
         b1.image = image
 
@@ -214,12 +168,12 @@ class Bilet_page(tk.Frame):
         b4.grid(row=4, column=0)
 
     def left(self):
-        l0 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        l1 = tk.Label(frame_center, width=self.width, height=self.height, background="lightblue",
+        l0 = whiteLabel()
+        l1 = tk.Label(frame_center, width=width_of_label, height=height_of_label, background="lightblue",
                       text="Bilet Ulgowy")
-        l2 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        l3 = tk.Label(frame_center, width=self.width, height=self.height, background="lightblue")
-        l4 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
+        l2 = whiteLabel()
+        l3 = tk.Label(frame_center, width=width_of_label, height=height_of_label, background="lightblue")
+        l4 = whiteLabel()
         l0.grid(row=0, column=0)
         l1.grid(row=1, column=0)
         l2.grid(row=2, column=0)
@@ -227,11 +181,11 @@ class Bilet_page(tk.Frame):
         l4.grid(row=4, column=0)
 
     def center(self):
-        m0 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        m1 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        m2 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        m3 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        m4 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
+        m0 = whiteLabel()
+        m1 = whiteLabel()
+        m2 = whiteLabel()
+        m3 = whiteLabel()
+        m4 = whiteLabel()
         m0.grid(row=0, column=1)
         m1.grid(row=1, column=1)
         m2.grid(row=2, column=1)
@@ -239,12 +193,12 @@ class Bilet_page(tk.Frame):
         m4.grid(row=4, column=1)
 
     def right(self):
-        r0 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        r1 = tk.Label(frame_center, width=self.width, height=self.height, background="lightblue",
+        r0 = whiteLabel()
+        r1 = tk.Label(frame_center, width=width_of_label, height=height_of_label, background="lightblue",
                       text="Bilet Normalny")
-        r2 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
-        r3 = tk.Label(frame_center, width=self.width, height=self.height, background="lightblue")
-        r4 = tk.Label(frame_center, width=self.width, height=self.height, background=self.white)
+        r2 = whiteLabel()
+        r3 = tk.Label(frame_center, width=width_of_label, height=height_of_label, background="lightblue")
+        r4 = whiteLabel()
 
         r0.grid(row=0, column=2)
         r1.grid(row=1, column=2)
@@ -254,21 +208,22 @@ class Bilet_page(tk.Frame):
 
     def create_center(self):
         global frame_center
-        frame_center = tk.Frame(self, highlightbackground="black", highlightthickness="5")
+        frame_center = tk.Frame(self, highlightbackground="black",
+                                highlightthickness="5", padx=0, pady=0)
         self.left()
         self.center()
         self.right()
-        frame_center.grid(row=1, column=1, padx=20, pady=20)
+        frame_center.grid(row=0, column=1)
 
     def create_right(self):
-        frame_right = tk.Frame(self, width=100)
+        frame_right = tk.Frame(self, width=100, padx=0, pady=0)
         self.buttons(frame_right)
-        frame_right.grid(row=1, column=2)
+        frame_right.grid(row=0, column=2)
 
     def create_left(self):
-        frame_left = tk.Frame(self, width=100)
+        frame_left = tk.Frame(self, width=100, padx=0, pady=0)
         self.buttons(frame_left)
-        frame_left.grid(row=1, column=0)
+        frame_left.grid(row=0, column=0)
 
     def create(self):
         self.create_left()
