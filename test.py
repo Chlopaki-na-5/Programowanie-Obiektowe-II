@@ -25,10 +25,15 @@ class Bilet(metaclass=SingletonMeta):
     is_normalne = None
 
     def change_count(self, how_many):
-        print("Before ", self.ilosc)
         if (self.ilosc + how_many >= 0):
             self.ilosc += how_many
-            print(self.ilosc)
+
+    def price(self):
+        if(self.is_normalne):
+            return (str(self.ilosc * 4) + " zł")
+        else:
+            return (str(self.ilosc * 2) + " zł")
+
 
 
 class tkinterApp(tk.Tk):
@@ -232,6 +237,7 @@ class Ilosc_Biletow_page(tk.Frame):
         self.white = "white"
         self.image_button = tk.PhotoImage(file=r".\button.png")
         self.image = tk.PhotoImage(file=r".\image3.png")
+        self.text =tk.StringVar()
 
         self.create()
 
@@ -242,11 +248,15 @@ class Ilosc_Biletow_page(tk.Frame):
     def change_count(self, how_many):
         bilet = Bilet()
         bilet.change_count(how_many)
+        self.text.set("Ilość biletów: " + str(bilet.ilosc))
 
     def change_page(self, page):
         if page == -1:
             self.controller.show_frame(Bilet_page)
         else:
+            bilet = Bilet()
+            p = Pay_page()
+            p.text_end.set(bilet.price())
             self.controller.show_frame(Pay_page)
 
     def buttons(self, frame, how_many_to_change):
@@ -280,7 +290,10 @@ class Ilosc_Biletow_page(tk.Frame):
 
     def center(self):
         m0 = tk.Label(frame_center, padx=0, pady=0, image=self.image)
+        l1 = tk.Label(frame_center, padx=0, pady=0, textvariable=self.text, font=("Arial", 40))
+        self.text.set("Ilość biletów: " + str(Bilet.ilosc))
         m0.grid(row=0, column=0)
+        l1.grid(row=0, column=0)
 
 
     def create_center(self):
@@ -305,8 +318,7 @@ class Ilosc_Biletow_page(tk.Frame):
         self.create_center()
         self.create_right()
 
-
-class Pay_page(tk.Frame):
+class Pay_page(tk.Frame, metaclass=SingletonMeta):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -314,7 +326,8 @@ class Pay_page(tk.Frame):
         self.controller = controller
         self.white = "white"
         self.image_button = tk.PhotoImage(file=r".\button.png")
-        self.image = tk.PhotoImage(file=r".\image3.png")
+        self.image = tk.PhotoImage(file=r".\image4.png")
+        self.text_end = tk.StringVar()
 
         self.create()
 
@@ -328,11 +341,10 @@ class Pay_page(tk.Frame):
 
     def change_page(self, page):
         if page == -1:
-            self.controller.show_frame(Bilet_page)
-        else:
-            self.controller.show_frame(Pay_page)
+            self.controller.show_frame(Ilosc_Biletow_page)
 
-    def buttons(self, frame, how_many_to_change):
+
+    def buttons(self, frame, page):
         width_image = 20
         height_image = 7
 
@@ -340,8 +352,7 @@ class Pay_page(tk.Frame):
 
         b0 = tk.Label(frame, width=width_image, height=height_image)
         b1_label = tk.Label(frame, width=width_image, height=height_image)
-        b1 = tk.Button(b1_label, image=image,
-                       command=lambda: self.change_count(how_many_to_change))
+        b1 = tk.Button(b1_label, image=image)
         b1.image = image
 
         b1.grid()
@@ -349,7 +360,7 @@ class Pay_page(tk.Frame):
         b2 = tk.Label(frame, width=width_image, height=height_image)
         b3_label = tk.Label(frame, width=width_image, height=height_image)
         b3 = tk.Button(b3_label, image=image,
-                       command=lambda: self.change_page(how_many_to_change))
+                       command=lambda: self.change_page(page))
 
         b3.grid()
 
@@ -362,8 +373,12 @@ class Pay_page(tk.Frame):
         b4.grid(row=4, column=0)
 
     def center(self):
+        bilet = Bilet()
         m0 = tk.Label(frame_center, padx=0, pady=0, image=self.image)
+        l1 = tk.Label(frame_center, padx=0, pady=0, textvariable=self.text_end, font=("Arial", 40))
+        self.text_end.set(bilet.price())
         m0.grid(row=0, column=0)
+        l1.grid(row=0, column=0)
 
     def create_center(self):
         global frame_center
@@ -374,7 +389,7 @@ class Pay_page(tk.Frame):
 
     def create_right(self):
         frame_right = tk.Frame(self, padx=0, pady=0)
-        self.buttons(frame_right, 1)
+        self.buttons(frame_right, 0)
         frame_right.grid(row=0, column=2)
 
     def create_left(self):
