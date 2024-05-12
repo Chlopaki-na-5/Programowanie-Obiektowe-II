@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import threading
 
 LARGEFONT = ("Verdana", 35)
 width_of_label = 50
@@ -51,7 +52,6 @@ class Bilet(metaclass=SingletonMeta):
             return str(0) + " zł"
 
 
-
 class TkinterApp(tk.Tk):
 
     # __init__ function for class tkinterApp
@@ -92,7 +92,7 @@ class TkinterApp(tk.Tk):
 
 # first window frame startpage
 
-class StartPage(tk.Frame):
+class StartPage(tk.Frame, metaclass=SingletonMeta):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.frames = None
@@ -101,7 +101,24 @@ class StartPage(tk.Frame):
         self.image_button = tk.PhotoImage(file=r".\button.png")
         self.image = tk.PhotoImage(file=r".\image1.png")
 
+        self.f_stop = threading.Event()
+
         self.create()
+
+    def timer(self):
+        if not self.f_stop.is_set():
+            threading.Timer(60, self.restart).start()
+        else:
+            self.f_stop.set()
+            threading.Timer(60, self.restart).start()
+
+    def restart(self):
+        bilet = Bilet()
+        bilet.reset()
+        ilosc_biletow = Ilosc_Biletow_page
+        ilosc_biletow.text.set("Ilość biletów: " + str(bilet.ilosc))
+        self.controller.show_frame(StartPage)
+        self.timer()
 
     def show_frame(self, cont):
         frame = self.frames[cont]
@@ -146,14 +163,14 @@ class StartPage(tk.Frame):
 
         b0 = tk.Label(frame, width=width_image, height=height_image)
         b1_label = tk.Label(frame, width=width_image, height=height_image)
-        b1 = tk.Button(b1_label, image=image, command=lambda: self.controller.show_frame(Bilet_page))
+        b1 = tk.Button(b1_label, image=image, command=lambda: self.change_page())
         b1.image = image
 
         b1.grid()
 
         b2 = tk.Label(frame, width=width_image, height=height_image)
         b3_label = tk.Label(frame, width=width_image, height=height_image)
-        b3 = tk.Button(b3_label, image=image, command=lambda: self.controller.show_frame(Bilet_page))
+        b3 = tk.Button(b3_label, image=image, command=lambda: self.change_page())
 
         b3.grid()
 
@@ -165,6 +182,10 @@ class StartPage(tk.Frame):
         b3_label.grid(row=3, column=0)
         b4.grid(row=4, column=0)
 
+    def change_page(self):
+        self.timer()
+        self.controller.show_frame(Bilet_page)
+
     def create(self):
         self.create_left()
         self.create_center()
@@ -173,7 +194,7 @@ class StartPage(tk.Frame):
         # self.frame.pack()
 
 
-class Bilet_page(tk.Frame):
+class Bilet_page(tk.Frame, metaclass=SingletonMeta):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -192,6 +213,8 @@ class Bilet_page(tk.Frame):
     def change_page(self, choose):
         bilet = Bilet()
         bilet.is_normalne = choose
+        startPage = StartPage()
+        startPage.timer()
         self.controller.show_frame(Ilosc_Biletow_page)
 
     def buttons(self, frame, choose):
@@ -254,7 +277,7 @@ class Bilet_page(tk.Frame):
         self.create_space()
 
 
-class Ilosc_Biletow_page(tk.Frame):
+class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -278,12 +301,16 @@ class Ilosc_Biletow_page(tk.Frame):
 
     def change_page(self, page):
         if page == -1:
+            bilet = Bilet()
+            bilet.reset()
             self.controller.show_frame(Bilet_page)
         else:
             bilet = Bilet()
             if bilet.ilosc > 0:
                 p = Pay_page()
                 p.text_end.set(bilet.price())
+                startPage = StartPage()
+                startPage.timer()
                 self.controller.show_frame(Pay_page)
 
     def buttons(self, frame, how_many_to_change):
@@ -374,11 +401,13 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
     def change_page(self, page):
         if page == -1:
             self.controller.show_frame(Ilosc_Biletow_page)
-        else:
+        elif page != 0:
             self.controller.show_frame(End_page)
             bilet = Bilet()
-            print("Reszta: " + str(bilet.cena))
+            print("Reszta: " + str(abs(bilet.cena)))
             bilet.reset()
+            ilosc_biletow = Ilosc_Biletow_page()
+            ilosc_biletow.text.set("Ilość biletów: " + str(bilet.ilosc))
             self.after(5000, lambda: self.controller.show_frame(StartPage))
 
     def buttons(self, frame, page):
@@ -440,7 +469,7 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
         self.text_end.set(bilet.pay())
         if bilet.cena <= 0:
             self.after(5000, lambda: self.change_page(1)
-)
+                       )
 
     def create_space(self):
         frame_space = tk.Frame(self, width=400, height=500, padx=0, pady=0)
@@ -489,7 +518,6 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
         frame_space.grid(row=0, column=3, padx=0, pady=0, sticky='we')
         frame_space.grid_columnconfigure(1, weight=1)
 
-
     def money(self, frame):
         width_image = 20
         height_image = 7
@@ -499,6 +527,7 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
         self.create_center()
         self.create_right()
         self.create_space()
+
 
 class End_page(tk.Frame):
     def __init__(self, parent, controller):
@@ -580,13 +609,13 @@ class End_page(tk.Frame):
         self.create_space()
         # self.frame.pack()
 
+
 # Driver Code
 app = TkinterApp()
 app.mainloop()
 
-
 #
-# 1. Dodać powrót automatyczny do pierwszej strony
+# 1. (Done)Dodać powrót automatyczny do pierwszej strony
 # 2. (Done)Poprawić End_page
 # 3. (Done)Dodać okno z wydrukiem biletu?
 # 4. (Done)Dodać chwilę, gdy pokazuje, że kwota została zapłacona i automatyczne przeniesienie do dalszej strony
