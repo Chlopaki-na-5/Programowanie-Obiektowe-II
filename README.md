@@ -200,6 +200,6 @@ W panelu Jira zostały utworzone zadania dla każdego z członków zespołu:
 6.    Raport ze stosowania metodologii programowania zwinnego - Jakub Nykiel
 
 Poniżej znajduje się załącznik z screenshotem z powyższych zadań z panelu Jira:
-![raport](raport.png)
+![raport](image/raport.png)
 
 
