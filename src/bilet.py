@@ -30,3 +30,26 @@ class Bilet(metaclass=SingletonMeta):
             return str(self.cena) + "0 zł"
         else:
             return str(0) + " zł"
+
+
+class BiletNormalny(Bilet):
+    def __init__(self):
+        super().__init__()
+        self.is_normalne = True
+
+
+class BiletUlgowy(Bilet):
+    def __init__(self):
+        super().__init__()
+        self.is_normalne = False
+
+
+class BiletFactory:
+    @staticmethod
+    def create_bilet(typ):
+        if typ == "normalny":
+            return BiletNormalny()
+        elif typ == "ulgowy":
+            return BiletUlgowy()
+        else:
+            return Bilet()  # Domyślnie, jeśli nie podano typu
