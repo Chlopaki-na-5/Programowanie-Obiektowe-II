@@ -1,6 +1,9 @@
 import tkinter as tk
 from gui_pages import StartPage, Bilet_page, Ilosc_Biletow_page, Pay_page, End_page
 
+class State:
+    current_page = None
+
 class TkinterApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -21,8 +24,12 @@ class TkinterApp(tk.Tk):
         self.show_frame(StartPage)
 
     def show_frame(self, cont):
-        frame = self.frames[cont]
-        frame.tkraise()
+        for frame in self.frames.values():
+            if frame.__class__.__name__ == cont.__name__:
+                frame.grid(row=0, column=0, sticky="nsew")
+            else:
+                frame.grid_remove()
+
 
 if __name__ == "__main__":
     app = TkinterApp()

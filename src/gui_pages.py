@@ -2,6 +2,10 @@ import threading
 import tkinter as tk
 from src.bilet import Bilet, SingletonMeta
 
+class State:
+    current_page = None
+
+
 class StartPage(tk.Frame, metaclass=SingletonMeta):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -93,6 +97,7 @@ class StartPage(tk.Frame, metaclass=SingletonMeta):
         b4.grid(row=4, column=0)
 
     def change_page(self):
+        State.current_page = Bilet_page
         self.timer()
         self.controller.show_frame(Bilet_page)
 
@@ -121,6 +126,7 @@ class Bilet_page(tk.Frame, metaclass=SingletonMeta):
         frame.tkraise()
 
     def change_page(self, choose):
+        State.current_page = Ilosc_Biletow_page
         bilet = Bilet()
         bilet.is_normalne = choose
         startPage = StartPage()
@@ -213,10 +219,12 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
 
     def change_page(self, page):
         if page == -1:
+            State.current_page = Bilet_page  # Update current page state
             bilet = Bilet()
             bilet.reset()
             self.controller.show_frame(Bilet_page)
         else:
+            State.current_page = Pay_page
             bilet = Bilet()
             if bilet.ilosc > 0:
                 p = Pay_page()
@@ -312,8 +320,10 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
 
     def change_page(self, page):
         if page == -1:
+            State.current_page = Ilosc_Biletow_page  # Update current page state
             self.controller.show_frame(Ilosc_Biletow_page)
         elif page != 0:
+            State.current_page = End_page  # Update current page state
             self.controller.show_frame(End_page)
             bilet = Bilet()
             print("Reszta: " + str(abs(bilet.cena)))
@@ -429,11 +439,6 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
         frame_space.rowconfigure(1, minsize=150, weight=1)
         frame_space.grid(row=0, column=3, padx=0, pady=0, sticky='we')
         frame_space.grid_columnconfigure(1, weight=1)
-
-    def money(self, frame):
-        width_image = 20
-        height_image = 7
-
     def create(self):
         self.create_left()
         self.create_center()
@@ -519,4 +524,3 @@ class End_page(tk.Frame):
         self.create_center()
         self.create_right()
         self.create_space()
-        # self.frame.pack()
