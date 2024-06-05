@@ -1,8 +1,10 @@
 import tkinter as tk
 from gui_pages import StartPage, Bilet_page, Ilosc_Biletow_page, Pay_page, End_page
 
+
 class State:
     current_page = None
+
 
 class TkinterApp(tk.Tk):
     def __init__(self, *args, **kwargs):
