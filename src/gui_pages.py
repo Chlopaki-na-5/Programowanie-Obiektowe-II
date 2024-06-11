@@ -1,10 +1,13 @@
 import threading
 import tkinter as tk
-from src.bilet import Bilet, BiletFactory, SingletonMeta
+
+from src.bilet import BiletFactory, SingletonMeta
+
 
 class State:
     current_page = None
     bilet = None  # Store the current Bilet instance
+
 
 class StartPage(tk.Frame, metaclass=SingletonMeta):
     def __init__(self, parent, controller):
@@ -220,9 +223,9 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
         else:
             State.current_page = Pay_page
             if State.bilet and State.bilet.ilosc > 0:
-                p = Pay_page()
+                p = self.controller.frames[Pay_page]
                 p.text_end.set(State.bilet.price())
-                startPage = StartPage()
+                startPage = self.controller.frames[StartPage]
                 startPage.timer()
                 self.controller.show_frame(Pay_page)
 
@@ -234,8 +237,7 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
 
         b0 = tk.Label(frame, width=width_image, height=height_image)
         b1_label = tk.Label(frame, width=width_image, height=height_image)
-        b1 = tk.Button(b1_label, image=image,
-                       command=lambda: self.change_count(how_many_to_change))
+        b1 = tk.Button(b1_label, image=image,command=lambda: self.change_count(how_many_to_change))
         b1.image = image
 
         b1.grid()
@@ -243,6 +245,7 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
         b2 = tk.Label(frame, width=width_image, height=height_image)
         b3_label = tk.Label(frame, width=width_image, height=height_image)
         b3 = tk.Button(b3_label, image=image)
+        b3 = tk.Button(b3_label, image=image, command=lambda: self.change_page(how_many_to_change))
 
         b3.grid()
 
@@ -257,6 +260,10 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
     def center(self):
         m0 = tk.Label(frame_center, padx=0, pady=0, image=self.image)
         m0.grid(row=0, column=0)
+        l1 = tk.Label(frame_center, padx=0, pady=0, textvariable=self.text, font=("Arial", 40))
+        l1.grid(row=0, column=0)
+        self.text.set("Ilość biletów: " + str(State.bilet.ilosc if State.bilet else 0))
+
 
     def create_center(self):
         global frame_center

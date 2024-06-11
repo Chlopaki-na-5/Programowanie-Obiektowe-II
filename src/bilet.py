@@ -52,4 +52,4 @@ class BiletFactory:
         elif typ == "ulgowy":
             return BiletUlgowy()
         else:
-            return Bilet()  # Domyślnie, jeśli nie podano typu
+            return Bilet()
