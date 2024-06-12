@@ -324,8 +324,10 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
             self.controller.show_frame(Ilosc_Biletow_page)
         elif page != 0:
             State.current_page = End_page  # Update current page state
+            end_page = self.controller.frames[End_page]
+            change = abs(State.bilet.cena)
+            end_page.update_change_label(change)
             self.controller.show_frame(End_page)
-            print("Reszta: " + str(abs(State.bilet.cena)))
             State.bilet.reset()
             ilosc_biletow = Ilosc_Biletow_page()
             ilosc_biletow.text.set("Ilość biletów: " + str(State.bilet.ilosc))
@@ -450,12 +452,16 @@ class End_page(tk.Frame):
         self.white = "white"
         self.image_button = tk.PhotoImage(file=r"../image/button.png")
         self.image = tk.PhotoImage(file=r"../image/image5.png")
+        self.change_label = tk.StringVar()
 
         self.create()
 
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
+
+    def update_change_label(self, change):
+        self.change_label.set(f"Reszta: {change} zł")
 
     # left panel with buttons
     def create_left(self):
@@ -483,6 +489,10 @@ class End_page(tk.Frame):
     def center(self):
         m0 = tk.Label(frame_center, padx=0, pady=0, image=self.image)
         m0.grid(row=0, column=0)
+
+        # Add change label below the image
+        l1 = tk.Label(frame_center, textvariable=self.change_label, font=("Arial", 20))
+        l1.grid(row=1, column=0)
 
     def create_space(self):
         frame_space = tk.Frame(self, width=450, padx=0, pady=0)

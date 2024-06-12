@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0594e2d7-34e0-4ff6-b42f-a5fa2916d99d" name="Changes" comment="Próba farbyki" />
+    <list default="true" id="0594e2d7-34e0-4ff6-b42f-a5fa2916d99d" name="Changes" comment="Próba farbyki">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui_pages.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui_pages.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,6 +69,7 @@
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;RefreshBiletCount&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/jnyki/Desktop/Workspaces/Projekt Obiektowe/Lab14&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -119,7 +123,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
+        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
       </set>
     </attachedChunks>
   </component>
@@ -146,6 +150,8 @@
       <workItem from="1717500572011" duration="15449000" />
       <workItem from="1717606299137" duration="7450000" />
       <workItem from="1718117564839" duration="3472000" />
+      <workItem from="1718197460298" duration="1426000" />
+      <workItem from="1718207529766" duration="2428000" />
     </task>
     <task id="LOCAL-00001" summary="App v1.1">
       <option name="closed" value="true" />
