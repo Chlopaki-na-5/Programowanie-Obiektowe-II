@@ -209,10 +209,13 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
         frame = self.frames[cont]
         frame.tkraise()
 
+    def update_ticket_count(self):
+        self.text.set("Ilość biletów: " + str(State.bilet.ilosc if State.bilet else 0))
+
     def change_count(self, how_many):
         if State.bilet:
             State.bilet.change_count(how_many)
-            self.text.set("Ilość biletów: " + str(State.bilet.ilosc))
+            self.update_ticket_count()  # Aktualizacja wyświetlanej ilości biletów po zmianie
 
     def change_page(self, page):
         if page == -1:
@@ -220,6 +223,7 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
             if State.bilet:
                 State.bilet.reset()
             self.controller.show_frame(Bilet_page)
+            self.update_ticket_count()  # Aktualizacja wyświetlanej ilości biletów po powrocie
         else:
             State.current_page = Pay_page
             if State.bilet and State.bilet.ilosc > 0:
@@ -262,7 +266,7 @@ class Ilosc_Biletow_page(tk.Frame, metaclass=SingletonMeta):
         m0.grid(row=0, column=0)
         l1 = tk.Label(frame_center, padx=0, pady=0, textvariable=self.text, font=("Arial", 40))
         l1.grid(row=0, column=0)
-        self.text.set("Ilość biletów: " + str(State.bilet.ilosc if State.bilet else 0))
+        self.update_ticket_count()  # Aktualizacja wyświetlanej ilości biletów podczas tworzenia strony))
 
 
     def create_center(self):
