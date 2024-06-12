@@ -130,6 +130,7 @@ class Bilet_page(tk.Frame, metaclass=SingletonMeta):
         State.bilet = BiletFactory.create_bilet(typ)
         startPage = StartPage()
         startPage.timer()
+
         self.controller.show_frame(Ilosc_Biletow_page)
 
     def buttons(self, frame, typ):
