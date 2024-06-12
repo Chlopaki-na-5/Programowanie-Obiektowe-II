@@ -333,7 +333,6 @@ class Pay_page(tk.Frame, metaclass=SingletonMeta):
             ilosc_biletow.text.set("Ilość biletów: " + str(State.bilet.ilosc))
             self.after(5000, lambda: self.controller.show_frame(StartPage))
 
-
     def buttons(self, frame, page):
         width_image = 20
         height_image = 7

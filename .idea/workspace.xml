@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0594e2d7-34e0-4ff6-b42f-a5fa2916d99d" name="Changes" comment="Próba farbyki">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui_pages.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui_pages.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +150,7 @@
       <workItem from="1717606299137" duration="7450000" />
       <workItem from="1718117564839" duration="3472000" />
       <workItem from="1718197460298" duration="1426000" />
-      <workItem from="1718207529766" duration="2762000" />
+      <workItem from="1718207529766" duration="3083000" />
     </task>
     <task id="LOCAL-00001" summary="App v1.1">
       <option name="closed" value="true" />
