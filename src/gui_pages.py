@@ -32,6 +32,8 @@ class StartPage(tk.Frame, metaclass=SingletonMeta):
     def restart(self):
         if State.bilet:
             State.bilet.reset()
+        ilosc_biletow = Ilosc_Biletow_page
+        ilosc_biletow.text.set("Ilość biletów: " + str(State.bilet.ilosc if State.bilet else 0))
         self.controller.show_frame(StartPage)
         self.timer()
 
