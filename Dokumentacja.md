@@ -361,4 +361,23 @@ https://www.canva.com/design/DAGAum7-1Fs/h66BKcrA4z2E_b1GyXD5rA/edit?utm_content
 ## Raport ze stosowania metodologii programowania zwinnego: ##
 ![JiraII](JiraII.png)
 
+## Wykorzystane wzorce projektowe: ##
 
+- Singleton
+- Factory
+- State
+- Template Method
+
+## Testy ##
+
+W celu przeprowadzenia testów wykorzystano unittest. Wskaźniki pokrycia pokazują, że 75% plików zostało przetestowanych, a 59% linii kodu jest pokryte testami. Oznacza to, że większość plików w projekcie ma przynajmniej minimalne testy.
+
+![tests](tests.png)
+
+## Raport ze stosowania metodologii programowania zwinnego: ##
+
+![JiraIII](JiraIII.png)
+
+## Repozytorium: ##
+
+https://github.com/Chlopaki-na-5/Programowanie-Obiektowe-II/tree/State_i_Fabryka
