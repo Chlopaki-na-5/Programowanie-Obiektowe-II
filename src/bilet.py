@@ -25,6 +25,7 @@ class Bilet(metaclass=SingletonMeta):
             self.cena = round((self.ilosc * 2.0), 2)
             return str(self.cena) + "0 zł"
 
+
     def pay(self):
         if self.cena > 0:
             return str(self.cena) + "0 zł"
